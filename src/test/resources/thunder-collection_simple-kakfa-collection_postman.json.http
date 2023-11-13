@@ -1,0 +1,79 @@
+# simple-kakfa-collection
+
+###
+# @name listen
+POST https://{{host}}/kafka/api/listen
+Authorization: Bearer <your client token>
+content-type: application/json
+
+[
+  {
+    "topic": "listen",
+    "key": "82f17b2dba",
+    "value": "banana"
+  },
+  {
+    "topic": "outer-aug-look",
+    "key": "b0f@fda.gov",
+    "value": "apple"
+  },
+  {
+    "topic": "1nNer-dgdg-lo0p",
+    "key": "82f17b2dba",
+    "value": "orange"
+  },
+  {
+    "topic": "fbh4s-do7s-ktxe",
+    "key": "b0f6459c-046c-45f3-ab6d-4582f17b2dba",
+    "value": ""
+  },
+  {}
+]
+
+###
+# @name temperature
+POST https://{{host}}/kafka/api/publish?
+    message=42
+
+###
+# @name xml
+POST https://{{host}}/kafka/api/send
+Content-Type: text/plain
+
+<note>
+    <special>&sometimes$#*^;'"09()</special>
+    <to>Tove</to>
+    <from>Jani</from>
+    <heading>Reminder</heading>
+    <body>Don't forget me this weekend!</body>
+</note>
+
+###
+# @name json
+POST https://{{host}}/kafka/api/send
+Content-Type: application/json
+
+{
+  "note": {
+    "special": "&sometimes$#*^;'09()",
+    "to": "Tove",
+    "from": "Jani",
+    "heading": "Reminder",
+    "body": "Don't forget me this weekend!"
+  }
+}
+
+###
+# @name baeldung
+POST https://{{host}}/kafka/api/send
+Content-Type: application/json
+
+{
+  "note": {
+    "special": "&sometimes$#*^;'09()",
+    "to": "Tove",
+    "from": "Jani",
+    "heading": "Reminder",
+    "body": "Don't forget me this weekend!"
+  }
+}

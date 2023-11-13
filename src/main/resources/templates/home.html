@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/home.css}" rel="stylesheet">
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
+    <script th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
+    <script th:src="@{/webjars/momentjs/min/moment.min.js}"></script>
+    <script th:src="@{/webjars/chart.js/dist/chart.umd.js}"></script>
+    <script th:src="@{/js/home.js}"></script>
+</head>
+    <body>
+        <div class="alert alert-danger temperature" role="alert">
+            <p class="text-center">Current Temperature : <b id="temperature">0</b></p>
+        </div>
+        <div class="model">
+            <div class="modal-dialog chartModal" >
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Temperature</h5>
+                    </div>
+                    <div class="model-body">
+                        <div class="container chartContainer">
+                            <canvas id="lineChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="txt" style="{align: center;}"></div>
+
+        <div id="content card">
+            <h3 class="text-center">Live Consumer</h3>
+
+            <table id="topTable" class="table">
+                <thead>
+                <tr>
+                    <th style="{width: 150px;}">Topic</th>
+                    <th style="{width: 100px;}">Key</th>
+                    <th style="{width: 100px;}">Value</th>
+                    <th style="{width: 100px;}">Time</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </body>
+
+</html>

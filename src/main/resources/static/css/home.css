@@ -1,0 +1,18 @@
+.temperature {
+    width:300px;
+    margin-left:40%;
+    margin-top:10px;
+}
+
+.chartModal {
+    width:80%;
+    height:auto;
+}
+
+.chartContainer {
+    width:80%;
+}
+
+body {
+    background: rgb(255, 184, 144);
+}

@@ -1,0 +1,186 @@
+{
+    "info": {
+        "_postman_id": "ce99936b-9f0a-4e1c-9bf5-e9ab099bdad7",
+        "name": "simple-kakfa-collection",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "listen",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "https://{{host}}/kafka/api/listen",
+                    "path": [
+                        "kafka",
+                        "listen"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "8444"
+                },
+                "header": [
+                    {
+                        "key": "content-type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "[{\n \"topic\":\"listen\",\n \"key\":\"82f17b2dba\",\n \"value\":\"banana\"\n},{\n \"topic\":\"outer-aug-look\",\n \"key\":\"b0f@fda.gov\",\n \"value\":\"apple\"\n},{\n \"topic\":\"1nNer-dgdg-lo0p\",\n \"key\":\"82f17b2dba\",\n \"value\":\"orange\"\n},{\n \"topic\":\"fbh4s-do7s-ktxe\",\n \"key\":\"b0f6459c-046c-45f3-ab6d-4582f17b2dba\",\n \"value\":\"\"\n},{}]"
+                },
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "<your client token>",
+                            "type": "string"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "temperature",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "https://{{host}}/kafka/api/publish?message=42",
+                    "query": [
+                        {
+                            "key": "message",
+                            "value": "42"
+                        }
+                    ],
+                    "variable": [],
+                    "path": [
+                        "kafka",
+                        "publish"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "8444"
+                }
+            }
+        },
+        {
+            "name": "xml",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "https://{{host}}/kafka/api/send",
+                    "path": [
+                        "kafka",
+                        "send"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "8444"
+                },
+                "header": [
+                    {
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "xml"
+                        }
+                    },
+                    "raw": "<note>\n    <special>&sometimes$#*^;'\"09()</special>\n    <to>Tove</to>\n    <from>Jani</from>\n    <heading>Reminder</heading>\n    <body>Don't forget me this weekend!</body>\n</note>"
+                }
+            }
+        },
+        {
+            "name": "json",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "https://{{host}}/kafka/api/send",
+                    "path": [
+                        "kafka",
+                        "send"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "8444"
+                },
+                "header": [
+                    {
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"note\": {\n    \"special\": \"&sometimes$#*^;'09()\",\n    \"to\": \"Tove\",\n    \"from\": \"Jani\",\n    \"heading\": \"Reminder\",\n    \"body\": \"Don't forget me this weekend!\"\n  }\n}"
+                }
+            }
+        },
+        {
+            "name": "baeldung",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "https://{{host}}/kafka/api/send",
+                    "path": [
+                        "kafka",
+                        "send"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "8444"
+                },
+                "header": [
+                    {
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"note\": {\n    \"special\": \"&sometimes$#*^;'09()\",\n    \"to\": \"Tove\",\n    \"from\": \"Jani\",\n    \"heading\": \"Reminder\",\n    \"body\": \"Don't forget me this weekend!\"\n  }\n}"
+                }
+            }
+        }
+    ]
+}

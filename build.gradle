@@ -1,0 +1,60 @@
+plugins {
+    id "java"
+    id "war"
+    id "org.springframework.boot" version"2.7.17"
+}
+
+group = "org.example"
+
+war {
+    archiveFileName = 'kafka.war'
+}
+
+java {
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.avro:avro:1.11.3'
+    implementation 'org.apache.poi:poi-ooxml:5.2.4'
+    implementation 'org.apache.kafka:kafka-streams:3.2.3'
+    implementation 'org.springframework.kafka:spring-kafka:2.9.13'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.yaml:snakeyaml:2.2' //  due to vulnerabilities when transiently pulled from spring-boot-starter-web:2.7.17
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation "org.springframework.boot:spring-boot-starter-oauth2-client"
+    implementation 'org.springframework.security:spring-security-core:5.8.8'
+
+    implementation 'org.slf4j:slf4j-jdk14:2.0.9'
+    implementation 'com.h2database:h2:2.2.224'
+    implementation 'com.thoughtworks.xstream:xstream:1.4.20'
+    implementation 'net.datafaker:datafaker:1.9.0'
+
+    implementation 'org.webjars:webjars-locator:0.48'
+    implementation 'org.webjars:bootstrap:5.3.2'
+    implementation 'org.webjars:jquery:3.7.1'
+    implementation 'org.webjars:stomp-websocket:2.3.4'
+    implementation 'org.webjars:sockjs-client:1.5.1'
+    implementation 'org.webjars:momentjs:2.29.4'
+    implementation 'org.webjars.npm:chart.js:4.4.0'
+
+    annotationProcessor'org.projectlombok:lombok:1.18.30'
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+
+    testImplementation(platform("org.junit:junit-bom:5.9.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
+apply plugin: 'io.spring.dependency-management'
