@@ -13,6 +13,11 @@
     width:80%;
 }
 
+#content {
+    max-width: 90%;
+    margin: 0 auto;
+}
+
 body {
     background: rgb(255, 184, 144);
 }

@@ -1,16 +1,10 @@
 package org.example.data;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 @Data
 @AllArgsConstructor

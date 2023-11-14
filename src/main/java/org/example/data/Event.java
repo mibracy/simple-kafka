@@ -2,15 +2,12 @@ package org.example.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.apache.kafka.common.protocol.types.Field;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor

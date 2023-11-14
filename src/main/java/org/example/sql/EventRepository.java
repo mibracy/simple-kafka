@@ -6,7 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Table;
-import java.util.Collection;
 import java.util.List;
 
 @Repository

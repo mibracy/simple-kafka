@@ -9,11 +9,6 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.ss.usermodel.DataFormatter;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.example.data.H2User;
 import org.example.data.KafkaPayload;
 import org.example.data.ObjectDB;
@@ -27,7 +22,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -86,8 +80,6 @@ public class FileExportService {
 
     /**
      * Use Streams to create file on system
-     * @param data
-     * @param fn
      */
     private static void writeUsingOutputStream(String data, String fn) throws IOException {
         OutputStream os = null;
@@ -107,8 +99,7 @@ public class FileExportService {
         xStream.processAnnotations(H2User.class);
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        OutputStreamWriter writer = null;
-        writer = new OutputStreamWriter(stream, StandardCharsets.UTF_8);
+        OutputStreamWriter writer = new OutputStreamWriter(stream, StandardCharsets.UTF_8);
         HierarchicalStreamWriter xmlWriter = new PrettyPrintWriter(writer);
         xStream.marshal(data, xmlWriter);
 

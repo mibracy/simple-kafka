@@ -30,6 +30,7 @@ public class SecurityConfig {
             "/h2-console/**",
     };
 
+    // Oauth2 Secured endpoints
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().ignoringAntMatchers(CSRF_ALLOWLIST)
@@ -45,6 +46,7 @@ public class SecurityConfig {
         return http.build();
     }
 
+    // Simple Bearer Token Authorization
     public static ResponseEntity<String> authHeaderCheck(HttpServletRequest request, String toke) {
         String header = request.getHeader("Authorization");
 
