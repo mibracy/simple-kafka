@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.example.config.SecurityConfig.authHeaderCheck;
 
@@ -58,14 +59,15 @@ public class SQLController {
         List<H2User> users = new ArrayList<>();
         for (int i = 0; i < 1000; i++) {
             Faker faker = new Faker();
-            String name = faker.funnyName().name();
-            String email = faker.futurama().hermesCatchPhrase();
+            String name = faker.futurama().character();
+            String email = faker.dungeonsAndDragons().monsters();
 
-            H2User userRandy = new H2User(name, email+"@domain.com");
+            H2User userRandy = new H2User(name, email+"@local.host");
 
             users.add(userRandy);
         }
 
+        AtomicInteger errorCount = new AtomicInteger();
         // validate each H2User, save to correct DB -- errors out if invalid doesn't save
         users.forEach(user -> {
             BindingResult errors = new BeanPropertyBindingResult(user, user.getClass().getName());
@@ -73,6 +75,8 @@ public class SQLController {
 
             if (!errors.hasErrors()) {
                 userRepo.save(user);
+            } else {
+                errorCount.getAndIncrement();
             }
         });
 
@@ -86,7 +90,7 @@ public class SQLController {
         simp.convertAndSend("/topic/temperature", userRepo.count());
 
         // return Response in desired format
-        response = new ResponseEntity<>("DB Size " + beforeCount + "->" + userRepo.count(), HttpStatus.OK);
+        response = new ResponseEntity<>("DB Size=" + beforeCount + "->" + userRepo.count() + " auto-rejected=" + errorCount.longValue(), HttpStatus.OK);
         return response;
     }
 
