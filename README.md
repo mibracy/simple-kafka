@@ -6,7 +6,7 @@
   </a>
 </p>
 
-> Example project of a kafka messaging producer and consumer. H2-file database. XML/JSON/PDF flat-file generation. Annotation validation. Websocket used for real time updates. OAUTH2 Google Spring Security. Spring boot gradle project run on tomcat using Java-8.
+> Example project of a kafka messaging producer and consumer. H2-file database. XML/JSON/PDF flat-file generation. Annotation validation. Websocket used for real time updates. OAUTH2 Google Spring Security. Spring boot gradle project run on tomcat Java-8 compatible.
 
 ## Install
 
@@ -17,7 +17,7 @@ gradle clean build
 ## Usage
 
 ```sh
-Copy war file to tomcat /webapps directory or run as springboot jar
+Copy war file to tomcat /webapps directory
 ```
 
 ## Author
