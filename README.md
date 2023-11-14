@@ -25,7 +25,7 @@ Copy war file to tomcat /webapps directory or run as springboot jar
 👤 **Michael Bracy**
 
 * Github: [@mibracy](https://github.com/mibracy)
-* LinkedIn: [@mibracy](https://linkedin.com/in/mibracy)
+* LinkedIn: [@mibracy](https://linkedin.com/in/michael-bracy)
 
 ## Show your support
 
