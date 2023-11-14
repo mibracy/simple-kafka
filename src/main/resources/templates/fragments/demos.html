@@ -1,0 +1,41 @@
+<!--/* Temperature fragment */-->
+<div th:fragment="temperature">
+    <div class="alert alert-danger temperature" role="alert">
+        <p class="text-center">Current Temperature : <b id="temperature">0</b></p>
+    </div>
+    <div class="model">
+        <div class="modal-dialog chartModal" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Temperature</h5>
+                </div>
+                <div class="model-body">
+                    <div class="container chartContainer">
+                        <canvas id="lineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--/* Live Table fragment */-->
+<div th:fragment="liveTable">
+    <div id="content">
+        <h5 class="text-center">Live Consumer</h5>
+
+        <table data-bs-theme="dark" id="kafkaTable"  class="table display">
+            <thead>
+            <tr>
+                <th>Topic</th>
+                <th>Key</th>
+                <th>Value</th>
+                <th>Time</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</div>

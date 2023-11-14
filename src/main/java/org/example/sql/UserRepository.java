@@ -5,7 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Table;
-import javax.transaction.Transactional;
 
 @Repository
 @Table(name = "H2USER")

@@ -40,11 +40,15 @@ dependencies {
 
     implementation 'org.webjars:webjars-locator:0.48'
     implementation 'org.webjars:bootstrap:5.3.2'
+    implementation 'org.webjars:datatables:1.13.5'
+    implementation 'org.webjars:datatables-buttons:2.4.1'
     implementation 'org.webjars:jquery:3.7.1'
     implementation 'org.webjars:stomp-websocket:2.3.4'
     implementation 'org.webjars:sockjs-client:1.5.1'
     implementation 'org.webjars:momentjs:2.29.4'
     implementation 'org.webjars.npm:chart.js:4.4.0'
+    implementation 'org.webjars:jszip:3.10.1'
+    implementation 'org.webjars.bower:pdfmake:0.2.7'
 
     annotationProcessor'org.projectlombok:lombok:1.18.30'
     compileOnly 'org.projectlombok:lombok:1.18.30'
