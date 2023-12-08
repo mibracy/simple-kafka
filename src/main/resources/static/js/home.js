@@ -50,10 +50,14 @@ const config = {
         }
     }
 };
-
+let table;
+const getCurrentTime = () => new Date()
+    .toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })
+    .replaceAll(`,`,``);
 /* Document Ready Event */
 $(document).ready(function() {
-    const table = $('#kafkaTable').DataTable({
+    table = $('#kafkaTable').DataTable({
+        order: [[3, 'desc']],
         dom: 'Blfrtip',
         buttons: [
             'copyHtml5',
@@ -73,8 +77,8 @@ $(document).ready(function() {
 
         stompClient.subscribe('/topic/temperature', function(temperature) {
             $('#temperature').text(temperature.body);
-            /* Push new data On X-Axis of Chart */
-            config.data.labels.push(new Date());
+            /* Push new date On X-Axis of Chart */
+            config.data.labels.push(getCurrentTime());
             /* Push new data on Y-Axis of chart */
             config.data.datasets.forEach(function(dataset) {
                 dataset.data.push(temperature.body);
@@ -84,11 +88,24 @@ $(document).ready(function() {
 
         stompClient.subscribe('/topic/listen', function(payload) {
             let data = JSON.parse(payload.body);
-            table.row.add([data["topic"], data["key"], data["value"], data["time"]]).draw();
+            const pureKey = DOMPurify.sanitize(data["key"]);
+            const pureValue = DOMPurify.sanitize(data["value"]);
+            table.row.add([data["topic"], pureKey, pureValue, data["time"]]).draw();
         });
     });
 
+    $("#inject").on('click', function () {
+        triggerMe();
+    });
 });
+
+function triggerMe() {
+    const dirty = '<img src=x onerror=prompt(`HelloWorld`)>';
+    table.row.add(['XSS dirty', dirty, 1, getCurrentTime()]).draw();
+
+    const cleaned = DOMPurify.sanitize(dirty);
+    table.row.add(['XSS clean', cleaned, 0, getCurrentTime()]).draw();
+}
 
 function getServerPath() {
     return window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));

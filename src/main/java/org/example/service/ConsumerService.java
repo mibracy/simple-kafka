@@ -17,9 +17,12 @@ import java.util.Map;
 @Slf4j
 @Component
 public class ConsumerService {
+    private final SimpMessagingTemplate template;
 
     @Autowired
-    SimpMessagingTemplate template;
+    public ConsumerService(SimpMessagingTemplate template) {
+        this.template = template;
+    }
 
     @KafkaListener(topics = "my-topic")
     public void genericListen(String event) {

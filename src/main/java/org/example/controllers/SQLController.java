@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -31,18 +30,19 @@ public class SQLController {
 
     @Value("${bearer}")
     private String BEARER;
+    private final UserRepository userRepo;
+    private final SimpMessagingTemplate simp;
+    private final SmartValidator validator;
+    private final FileExportService exportService;
 
     @Autowired
-    private UserRepository userRepo;
-
-    @Autowired
-    SimpMessagingTemplate simp;
-
-    @Autowired
-    SmartValidator validator;
-
-    @Autowired
-    FileExportService exportService;
+    public SQLController(UserRepository userRepo, SimpMessagingTemplate simp,
+                         SmartValidator validator, FileExportService exportService) {
+        this.userRepo = userRepo;
+        this.simp = simp;
+        this.validator = validator;
+        this.exportService = exportService;
+    }
 
     @PostMapping("/sql/test_users")
     public ResponseEntity<String> testDBKafkaUsers(HttpServletRequest request) {
@@ -57,7 +57,7 @@ public class SQLController {
 
         // mock Test users
         List<H2User> users = new ArrayList<>();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 2; i++) {
             Faker faker = new Faker();
             String name = faker.futurama().character();
             String email = faker.dungeonsAndDragons().monsters();
@@ -83,8 +83,8 @@ public class SQLController {
 //        userRepo.findAll().forEach(user -> logger.info(user.toString())); // dumps all to table to log
 
         // dump entire DB to file in JSON and XML formats
-        Iterable<H2User> h2Repo = userRepo.findAll();
-        exportService.export("data/users", Collections.singleton(h2Repo), new ObjectDB(h2Repo));
+        ObjectDB h2Repo = new ObjectDB(userRepo.findAll());
+        exportService.export("data/users", h2Repo);
 
         // send size of DB to Kafka Broker for real-time display
         simp.convertAndSend("/topic/temperature", userRepo.count());
