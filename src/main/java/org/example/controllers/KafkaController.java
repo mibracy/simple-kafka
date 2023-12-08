@@ -26,15 +26,17 @@ public class KafkaController {
 
     @Value("${bearer}")
     private String TOKEN;
+    private final ProducerService producer;
+    private final EventRepository eventRepo;
+    private final SmartValidator validator;
 
     @Autowired
-    private ProducerService producer;
-
-    @Autowired
-    private EventRepository eventRepo;
-
-    @Autowired
-    SmartValidator validator;
+    public KafkaController(EventRepository eventRepo, ProducerService producer,
+                           SmartValidator validator) {
+        this.producer = producer;
+        this.eventRepo = eventRepo;
+        this.validator = validator;
+    }
 
     @PostMapping("/api/send")
     public ResponseEntity<String> sendToKafkaTopic(@RequestBody String event, HttpServletRequest request) {
@@ -119,8 +121,7 @@ public class KafkaController {
     }
 
     @GetMapping("/sql/topics")
-    @ResponseBody
-    public ResponseEntity<?> findTopics() {
+    public ResponseEntity<List<String>> findTopics() {
         return new ResponseEntity<>(eventRepo.findDistinctTopic(), HttpStatus.OK);
     }
 

@@ -12,9 +12,12 @@ import java.util.UUID;
 
 @Component
 public class ProducerService {
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
+    public ProducerService(KafkaTemplate<String, String> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
 
     public ListenableFuture<SendResult<String, String>> sendEvent(KafkaPayload event) {
         return kafkaTemplate.send(event.getTopic(), event.getKey() , event.getValue());

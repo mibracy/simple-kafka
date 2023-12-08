@@ -33,12 +33,15 @@ public class FileExportService {
 
     @Value("${export.path:../temp/}")
     private String exportPath;
+    private final List<String> types = Arrays.asList("json", "xml");
+    private final ProducerService producer;
 
     @Autowired
-    private ProducerService producer;
-    public final List<String> types = Arrays.asList("json", "xml");
+    public FileExportService(ProducerService producer) {
+        this.producer = producer;
+    }
 
-    public void export(String name, Iterable<Object> data, ObjectDB odb) {
+    public void export(String name, ObjectDB odb) {
         AtomicReference<String> converted = new AtomicReference<>("");
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
@@ -48,14 +51,14 @@ public class FileExportService {
             if ("json".equals(type)){
                 ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
                 try {
-                    converted.set(ow.writeValueAsString(data));
+                    converted.set(ow.writeValueAsString(odb));
                 } catch (JsonProcessingException e) {
                     converted.set("");
                     log.error(String.valueOf(e));
                 }
             } else if ("xml".equals(type)) {
                 try {
-                    converted.set(convertObjectToxStreamXML(data, name.replace("data/","")));
+                    converted.set(convertObjectToxStreamXML(odb, name.replace("data/","")));
                 } catch (UnsupportedEncodingException e) {
                     converted.set("");
                     log.error(String.valueOf(e));

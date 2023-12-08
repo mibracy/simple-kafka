@@ -11,7 +11,6 @@ import java.util.List;
 @Repository
 @Table(name = "EVENT")
 public interface EventRepository extends CrudRepository<Event, Long> {
-
     @Query("SELECT DISTINCT e.kafka_topic FROM Event e")
     List<String> findDistinctTopic();
 

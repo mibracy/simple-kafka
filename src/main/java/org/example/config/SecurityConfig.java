@@ -13,7 +13,6 @@ import static org.springframework.security.web.header.writers.ReferrerPolicyHead
 
 import javax.servlet.http.HttpServletRequest;
 
-
 @Configuration
 public class SecurityConfig {
 
@@ -41,8 +40,10 @@ public class SecurityConfig {
                 .and()
                 .headers(headers ->
                         headers.referrerPolicy(referrer ->
-                                referrer.policy(NO_REFERRER_WHEN_DOWNGRADE)).frameOptions().sameOrigin())
-                .oauth2Login(withDefaults()); // comment out to secure DB completely from access
+                                referrer.policy(NO_REFERRER_WHEN_DOWNGRADE))
+                                .frameOptions().sameOrigin()
+                                .xssProtection().block(true)
+                ).oauth2Login(withDefaults()); // comment out to secure DB completely from access
         return http.build();
     }
 
