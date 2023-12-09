@@ -49,7 +49,7 @@ public class SecurityConfig {
 
     // Simple Bearer Token Authorization
     public static ResponseEntity<String> authHeaderCheck(HttpServletRequest request, String toke) {
-        String header = request.getHeader("Authorization");
+        var header = request.getHeader("Authorization");
 
         if (header == null || !header.startsWith("Bearer ")) {
             return new ResponseEntity<>("No Auth in Header!", HttpStatus.FORBIDDEN);

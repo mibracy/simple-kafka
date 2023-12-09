@@ -47,30 +47,30 @@ public class SQLController {
     @PostMapping("/sql/test_users")
     public ResponseEntity<String> testDBKafkaUsers(HttpServletRequest request) {
         // Check for Bearer Token & reject request if invalid
-        ResponseEntity<String> response = authHeaderCheck(request, BEARER);
+        var response = authHeaderCheck(request, BEARER);
         if (response.getStatusCode().is4xxClientError()) {
             return response;
         }
 
         // store size of DB
-        long beforeCount = userRepo.count();
+        var beforeCount = userRepo.count();
 
         // mock Test users
-        List<H2User> users = new ArrayList<>();
+        var users = new ArrayList<H2User>();
         for (int i = 0; i < 2; i++) {
-            Faker faker = new Faker();
-            String name = faker.futurama().character();
-            String email = faker.dungeonsAndDragons().monsters();
+            var faker = new Faker();
+            var name = faker.futurama().character();
+            var email = faker.dungeonsAndDragons().monsters();
 
-            H2User userRandy = new H2User(name, email+"@local.host");
+            var userRandy = new H2User(name, email+"@local.host");
 
             users.add(userRandy);
         }
 
-        AtomicInteger errorCount = new AtomicInteger();
+        var errorCount = new AtomicInteger();
         // validate each H2User, save to correct DB -- errors out if invalid doesn't save
         users.forEach(user -> {
-            BindingResult errors = new BeanPropertyBindingResult(user, user.getClass().getName());
+            var errors = new BeanPropertyBindingResult(user, user.getClass().getName());
             validator.validate(user, errors);
 
             if (!errors.hasErrors()) {
@@ -83,7 +83,7 @@ public class SQLController {
 //        userRepo.findAll().forEach(user -> logger.info(user.toString())); // dumps all to table to log
 
         // dump entire DB to file in JSON and XML formats
-        ObjectDB h2Repo = new ObjectDB(userRepo.findAll());
+        var h2Repo = new ObjectDB(userRepo.findAll());
         exportService.export("data/users", h2Repo);
 
         // send size of DB to Kafka Broker for real-time display
