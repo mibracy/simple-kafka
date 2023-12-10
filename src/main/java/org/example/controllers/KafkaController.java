@@ -41,12 +41,12 @@ public class KafkaController {
     @PostMapping("/api/send")
     public ResponseEntity<String> sendToKafkaTopic(@RequestBody String event, HttpServletRequest request) {
         // Check for Bearer Token & reject request if invalid
-        ResponseEntity<String> response = authHeaderCheck(request, TOKEN);
+        var response = authHeaderCheck(request, TOKEN);
         if (response.getStatusCode().is4xxClientError()) {
             return response;
         }
 
-        String randomUUID = "-" + UUID.randomUUID();
+        var randomUUID = "-" + UUID.randomUUID();
         // send Event directly to 'my-topic' Kafka Broker without validation
         producer.sendEvent(new KafkaPayload("my-topic", request.getHeader("key")+ randomUUID, event));
 
@@ -58,7 +58,7 @@ public class KafkaController {
     @PostMapping("/api/beginning")
     public ResponseEntity<String> sendSqlTopic(HttpServletRequest request) {
         // Check for Bearer Token & reject request if invalid
-        ResponseEntity<String> response = authHeaderCheck(request, TOKEN);
+        var response = authHeaderCheck(request, TOKEN);
         if (response.getStatusCode().is4xxClientError()) {
             return response;
         }
@@ -73,7 +73,7 @@ public class KafkaController {
     @PostMapping("/api/listen")
     public ResponseEntity<String> listenToKafkaTopic(@RequestBody String events, HttpServletRequest request) throws Exception {
         // Check for Bearer Token & reject request if invalid
-        ResponseEntity<String> response = authHeaderCheck(request, TOKEN);
+        var response = authHeaderCheck(request, TOKEN);
         if (response.getStatusCode().is4xxClientError()) {
             return response;
         }
@@ -82,11 +82,11 @@ public class KafkaController {
         events = events.replace(",{}", "").replace("{}", "");
 
         // parse Event into Kafka Payload
-        ObjectMapper mapper = new ObjectMapper();
-        List<KafkaPayload> result = mapper.readValue(events, new TypeReference<List<KafkaPayload>>(){});
+        var mapper = new ObjectMapper();
+        var result = mapper.readValue(events, new TypeReference<List<KafkaPayload>>(){});
         // validate each Event sent and relay to correct broker/db
         result.forEach(event -> {
-            BindingResult errors = new BeanPropertyBindingResult(event, event.getClass().getName());
+            var errors = new BeanPropertyBindingResult(event, event.getClass().getName());
             validator.validate(event, errors);
 
             event.setKey(event.getTopic() +" ~!#~ "+ event.getKey()); 
@@ -107,7 +107,7 @@ public class KafkaController {
     @PostMapping("/api/publish")
     public ResponseEntity<String> publishToKafkaTopic(@RequestParam("message") String message, HttpServletRequest request) {
         // Check for Bearer Token & reject request if invalid
-        ResponseEntity<String> response = authHeaderCheck(request, TOKEN);
+        var response = authHeaderCheck(request, TOKEN);
         if (response.getStatusCode().is4xxClientError()) {
             return response;
         }

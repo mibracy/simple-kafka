@@ -24,10 +24,10 @@ public class ProducerService {
     }
 
     public void sendFirstCount() {
-        String randomUUID = String.valueOf(UUID.randomUUID());
+        var randomUUID = String.valueOf(UUID.randomUUID());
 
         for (int i = 1; i <= 10; i++) {
-            ProducerRecord<String, String> record = new ProducerRecord<>("first-count", randomUUID, String.valueOf(i));
+            var record = new ProducerRecord<>("first-count", randomUUID, String.valueOf(i));
             kafkaTemplate.send(record);
         }
     }

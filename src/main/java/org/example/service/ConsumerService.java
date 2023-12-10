@@ -32,7 +32,7 @@ public class ConsumerService {
     @KafkaListener(topics="temperature")
     public void consume(@Payload String value) {
         try {
-            Double temp = Double.parseDouble(value);
+            var temp = Double.parseDouble(value);
             template.convertAndSend("/topic/temperature", temp);
         } catch (NumberFormatException e) {
             log.error("Invalid format sent. Must be Integer/Double value");
@@ -41,8 +41,8 @@ public class ConsumerService {
 
     @KafkaListener(topics="first-count")
     public void consume(ConsumerRecord<String, KafkaPayload> payload) {
-        Map<String, String> payMap = new HashMap<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        var payMap = new HashMap<String, String>();
+        var sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
         payMap.put("key", String.valueOf(payload.key()));
         payMap.put("topic", payload.topic());

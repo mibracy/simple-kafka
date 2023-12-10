@@ -54,6 +54,11 @@ let table;
 const getCurrentTime = () => new Date()
     .toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })
     .replaceAll(`,`,``);
+
+const h2DB = function() {
+    const currentUrl = window.location.href;
+    document.location.href = currentUrl.replace("/home","/h2-console");
+}
 /* Document Ready Event */
 $(document).ready(function() {
     table = $('#kafkaTable').DataTable({
@@ -96,6 +101,10 @@ $(document).ready(function() {
 
     $("#inject").on('click', function () {
         triggerMe();
+    });
+
+    $("#h2-console").on('click', function () {
+        h2DB();
     });
 });
 
