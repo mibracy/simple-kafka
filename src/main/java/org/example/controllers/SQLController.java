@@ -16,7 +16,7 @@ import org.springframework.validation.SmartValidator;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -55,7 +55,7 @@ public class SQLController {
 
         // mock Test users
         var users = new ArrayList<H2User>();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 10000; i++) {
             var faker = new Faker();
             var name = faker.futurama().character();
             var email = faker.dungeonsAndDragons().monsters();

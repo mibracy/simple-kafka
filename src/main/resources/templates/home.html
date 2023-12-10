@@ -1,8 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<head th:replace="fragments/head :: default" />
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="~{fragments/head :: default}" />
     <body>
-        <div th:replace="fragments/demos :: temperature" />
-        <div th:replace="fragments/demos :: liveTable" />
+        <div class="float-end m-2 me-5">
+            <button id="h2-console" class="btn btn-sm btn-outline-dark">Console</button>
+        </div>
+        <div th:replace="~{fragments/demos :: temperature}" />
+        <div th:replace="~{fragments/demos :: liveTable}" />
     </body>
 </html>

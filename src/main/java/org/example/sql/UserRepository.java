@@ -4,7 +4,7 @@ import org.example.data.H2User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Table;
+import jakarta.persistence.Table;
 
 @Repository
 @Table(name = "H2USER")

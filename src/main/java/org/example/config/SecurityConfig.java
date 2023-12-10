@@ -4,46 +4,31 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
-import static org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy.NO_REFERRER_WHEN_DOWNGRADE;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Configuration
 public class SecurityConfig {
 
     private static final String[] AUTH_DENYLIST = {
-            "/h2-console/**", "/h2-console/login.do?**",
-    };
-    private static final String[] AUTH_ALLOWLIST = {
-             "/websocket", "/sockjs/**","/sql/**","/api/**","/topic/**",
-             "/css/**", "/js/**", "/webjars/**", "/oauth/**", "/error/**"
-    };
-
-    private static final String[] CSRF_ALLOWLIST = {
-            "/websocket", "/sockjs/**","/sql/**","/api/**", "/topic/**",
-            "/h2-console/**",
+            "/h2-console/**", "/h2-console/login.do?**"
     };
 
     // Oauth2 Secured endpoints
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().ignoringAntMatchers(CSRF_ALLOWLIST)
-                .and()
-                .authorizeRequests()
-                .antMatchers(AUTH_DENYLIST).fullyAuthenticated()
-                .antMatchers(AUTH_ALLOWLIST).permitAll()
-                .and()
-                .headers(headers ->
-                        headers.referrerPolicy(referrer ->
-                                referrer.policy(NO_REFERRER_WHEN_DOWNGRADE))
-                                .frameOptions().sameOrigin()
-                                .xssProtection().block(true)
-                ).oauth2Login(withDefaults()); // comment out to secure DB completely from access
+        http.csrf(AbstractHttpConfigurer::disable).headers(head -> head
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers(AUTH_DENYLIST).fullyAuthenticated()
+                        .anyRequest().permitAll())
+            .oauth2Login(withDefaults());
         return http.build();
     }
 
