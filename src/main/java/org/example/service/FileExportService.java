@@ -77,7 +77,7 @@ public class FileExportService {
             }
 
             // send Event to Kafka Topic
-            producer.sendEvent(new KafkaPayload(type + "_events", fileName, converted.get()));
+            producer.sendEvent(new KafkaPayload(type + "_events", fileName, "size=" + odb.getData().size()));
         });
     }
 
@@ -109,8 +109,8 @@ public class FileExportService {
         return stream.toString("UTF-8")
                 .replace("<singleton-set>", "")
                 .replace("</singleton-set>", "")
-                .replace("<list>", "<"+rootName+">")
-                .replace("</list>", "</"+rootName+">").trim();
+                .replace("<list>", "<" + rootName + ">")
+                .replace("</list>", "</" + rootName + ">").trim();
     }
 
 }
