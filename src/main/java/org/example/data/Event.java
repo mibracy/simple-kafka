@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
@@ -16,7 +13,8 @@ import javax.persistence.Id;
 public class Event {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "event_GEN")
+    @SequenceGenerator(name = "event_GEN", sequenceName = "event_SEQ", allocationSize = 1)
     private long id;
     private String kafka_topic;
     private String kafka_key;
@@ -37,6 +35,6 @@ public class Event {
 
 //    CREATE TABLE EVENT(ID INT PRIMARY KEY, KAFKA_TOPIC VARCHAR(255), KAFKA_KEY VARCHAR(255), KAFKA_VALUE VARCHAR(255), ERROR BOOLEAN);
 
-//    CREATE SEQUENCE HIBERNATE_SEQUENCE START WITH 1 INCREMENT BY 1;
+//    CREATE SEQUENCE EVENT_SEQ START WITH 1 INCREMENT BY 1;
 //    https://www.h2database.com/html/commands.html
 }
