@@ -9,7 +9,7 @@
         <Console name="console" target="SYSTEM_OUT">
             <PatternLayout pattern="${pattern}"/>
         </Console>
-        <RollingFile name="rollingFile" fileName="${logPath}/${rollingFileName}.log" filePattern="${logPath}/archived/%d{yyyy-MM-dd}/${rollingFileName}_%i.log">
+        <RollingFile name="rollingFile" fileName="${logPath}/${rollingFileName}.log" filePattern="${logPath}/${rollingFileName}/%d{yyyy-MM-dd}/${rollingFileName}_%i.log">
             <PatternLayout pattern="${pattern}"/>
             <Policies>
                 <!-- Causes a rollover if the log file is older than the current JVM's start time -->

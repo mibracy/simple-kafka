@@ -5,6 +5,7 @@
 <head th:replace="~{fragments/head :: default}" />
     <body>
         <div class="float-end m-2 me-5">
+            <h1 th:text="${sourceLoad}" />
             <button id="h2-console" class="btn btn-sm btn-outline-dark">Console</button>
         </div>
         <div th:replace="~{fragments/demos :: temperature}" />

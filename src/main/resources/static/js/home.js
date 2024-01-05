@@ -61,6 +61,44 @@ const h2DB = function() {
 }
 /* Document Ready Event */
 $(document).ready(function() {
+    $("#load").on('click', function () {
+        // Create request object
+        var request = new Request(location.origin + '/kafka/landing',
+            { method: 'POST',
+                body: JSON.stringify({
+                    "manifest":"&sometimes$#*^;'09()",
+                    "note": {
+                        "special": "&sometimes$#*^;'09()",
+                        "to": "Tove",
+                        "from": "Jani",
+                        "heading": "Reminder",
+                        "body": "Don't forget me this weekend!"
+                    }
+                }),
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                },
+            });
+        // Now use it!
+
+        fetch(request)
+            .then(resp => {
+                console.log(resp)
+                if (resp.redirected) {
+                    // resp.url contains the string URL to redirect to
+                    console.log(resp.url)
+                    window.location.href = resp.url;
+                } else {
+                    // data.form contains the HTML for the replacement form
+                    location.html = resp.body;
+                    console.log(resp.body)
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            });
+    });
+
     table = $('#kafkaTable').DataTable({
         order: [[3, 'desc']],
         dom: 'Blfrtip',

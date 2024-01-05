@@ -26,7 +26,7 @@ public class SecurityConfig {
 
     private static final String[] CSRF_ALLOWLIST = {
             "/websocket", "/sockjs/**","/sql/**","/api/**", "/topic/**",
-            "/h2-console/**",
+            "/h2-console/**", "/landing"
     };
 
     // Oauth2 Secured endpoints
