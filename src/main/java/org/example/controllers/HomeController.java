@@ -3,15 +3,18 @@ package org.example.controllers;
 
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import org.example.config.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
@@ -19,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
@@ -28,6 +32,7 @@ public class HomeController {
 
     private final SimpMessagingTemplate template;
     AtomicInteger hitCnt = new AtomicInteger();
+    ConcurrentHashMap<String, String> sessionRef = new ConcurrentHashMap<>();
 
     @Autowired
     public HomeController(SimpMessagingTemplate template) {
@@ -35,19 +40,27 @@ public class HomeController {
     }
 
     @GetMapping("/home")
-    public String home(Model model, @RequestParam(value = "source", defaultValue = "GET") String sourceLoad) {
-        model.addAttribute("sourceLoad", sourceLoad);
+    public String home(HttpServletRequest req, HttpServletResponse resp,  @AuthenticationPrincipal OidcUser principal,
+                       Model model, @RequestParam(value = "manifest", defaultValue = "init") String chef) throws IOException {
+
+        model.addAttribute("user", (principal != null) ? principal.getFullName() : "");
         return "home";
     }
+
     @PostMapping("/landing")
-    public String landing(HttpServletRequest req, @RequestBody String body, Model model) throws UnsupportedEncodingException {
+    public String landing(HttpServletRequest req, HttpServletResponse resp,
+                          @RequestBody String body, Model model) throws IOException {
         // Check for Auth
-        log.debug(req.getHeader("Authorization"));
+        if (req.getHeader("Authorization") == null) {
+            resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Requires Authentication");
+            return null; // return null to indicate your program that the request has finished with the error.
+        }
 
         // Process request
         Gson gson = new Gson();
         Map map = gson.fromJson(body, Map.class);
         log.info("manifest:" + map.get("manifest"));
+        map.remove("note");
 
         // Send Real-Time Update to display
         Map payMap = new HashMap<String, String>();
@@ -61,8 +74,10 @@ public class HomeController {
         template.convertAndSend("/topic/listen", payMap);
         template.convertAndSend("/topic/temperature", hitCnt.getAndIncrement());
 
-        return "redirect:/home?source=" + URLEncoder.encode(req.getMethod(), String.valueOf(StandardCharsets.UTF_8))
-                               + "&id=" + URLEncoder.encode((String) map.get("manifest"), String.valueOf(StandardCharsets.UTF_8));
+        model.addAttribute("sourceLoad", String.valueOf(map.get("manifest")));
+
+        return "redirect:/home?manifest="
+                + URLEncoder.encode((String) map.get("manifest"), String.valueOf(StandardCharsets.UTF_8));
     }
 
 }

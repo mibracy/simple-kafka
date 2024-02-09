@@ -77,22 +77,26 @@ $(document).ready(function() {
                 }),
                 headers: {
                     'Content-Type': 'application/json; charset=UTF-8',
+                    'Authorization' : 'Bearer test',
                 },
             });
         // Now use it!
 
         fetch(request)
             .then(resp => {
-                console.log(resp)
                 if (resp.redirected) {
                     // resp.url contains the string URL to redirect to
                     console.log(resp.url)
                     window.location.href = resp.url;
                 } else {
                     // data.form contains the HTML for the replacement form
-                    location.html = resp.body;
-                    console.log(resp.body)
+                    return resp.text()
                 }
+            })
+            .then (async html => {
+                document.body.innerHTML = await html;
+                let scripts = document.getElementsByTagName("script");
+                for (let i = 0, l = scripts.length; i < l; i++) eval(scripts[i].innerText);
             })
             .catch(err => {
                 console.log(err)

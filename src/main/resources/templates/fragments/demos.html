@@ -44,3 +44,27 @@
         </table>
     </div>
 </div>
+
+<div th:fragment="nav" class="card bg-dark" style="width: 125px;position: absolute;top:200px">
+    <ul class="nav flex-column">
+        <li class="nav-item dropend">
+            <a class="nav-link text-white dropdown-toggle " data-bs-toggle="dropdown" href="#" role="button" id="inboundDropNav" aria-haspopup="true" aria-expanded="false">Inbound</a>
+            <div class="dropdown-menu bg-dark-subtle" aria-labelledby="inboundDropNav">
+                <a class="dropdown-item" onclick="alert(`Load Page`)">MANIFEST</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" onclick="alert(`Load Page`)">PLACI</a>
+                <a class="dropdown-item" onclick="alert(`Load Page`)">PACT</a>
+                <a class="dropdown-item" onclick="alert(`Load Page`)">Watchlist</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" onclick="alert(`Load Page`)">Reports</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white disabled" onclick="alert(`Load Page`)">EXCS</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" onclick="alert(`Load Page`)">Outbound</a>
+        </li>
+    </ul>
+</div>
