@@ -40,7 +40,7 @@ public class HomeController {
 
     @GetMapping("/home")
     public String home(HttpServletRequest req, HttpServletResponse resp,  @AuthenticationPrincipal OidcUser principal,
-                       Model model, @RequestParam(value = "manifest", defaultValue = "init") String chef) throws IOException {
+                       Model model, @RequestParam(value = "manifest", defaultValue = "init") String chef) {
 
         model.addAttribute("user", (principal != null) ? principal.getFullName() : "");
         return "home";
@@ -56,13 +56,13 @@ public class HomeController {
         }
 
         // Process request
-        Gson gson = new Gson();
-        Map map = gson.fromJson(body, Map.class);
+        var gson = new Gson();
+        var map = gson.fromJson(body, Map.class);
         log.info("manifest:" + map.get("manifest"));
         map.remove("note");
 
         // Send Real-Time Update to display
-        Map payMap = new HashMap<String, String>();
+        var payMap = new HashMap<String, String>();
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
         payMap.put("topic", req.getMethod() );
