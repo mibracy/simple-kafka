@@ -1,6 +1,6 @@
 <!--/* Temperature fragment */-->
 <div th:fragment="temperature">
-    <div class="alert alert-danger temperature" role="alert">
+    <div class="alert alert-secondary temperature" role="alert">
         <p class="text-center">Current Temperature : <b id="temperature">0</b></p>
     </div>
     <div class="model">
@@ -23,6 +23,10 @@
 <div th:fragment="liveTable">
     <div id="content">
         <button id="inject" class="btn btn-sm btn-outline-dark">Purify XSS</button>
+        <button id="load" class="btn btn-sm btn-outline-dark">Load POST</button>
+        <a th:href="@{/home}">
+            <button id="getLoad" class="btn btn-sm btn-outline-dark">Clear Screen</button>
+        </a>
 
         <h5 class="text-center">Live Consumer</h5>
         <table data-bs-theme="dark" id="kafkaTable"  class="table display">
@@ -39,4 +43,28 @@
             </tbody>
         </table>
     </div>
+</div>
+
+<div th:fragment="nav" class="card bg-dark" style="width: 125px;position: absolute;top:200px">
+    <ul class="nav flex-column">
+        <li class="nav-item dropend">
+            <a class="nav-link text-white dropdown-toggle " data-bs-toggle="dropdown" href="#" role="button" id="inboundDropNav" aria-haspopup="true" aria-expanded="false">Inbound</a>
+            <div class="dropdown-menu bg-dark-subtle" aria-labelledby="inboundDropNav">
+                <a class="dropdown-item" onclick="alert(`Load Page`)">MANIFEST</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" onclick="alert(`Load Page`)">PLACI</a>
+                <a class="dropdown-item" onclick="alert(`Load Page`)">PACT</a>
+                <a class="dropdown-item" onclick="alert(`Load Page`)">Watchlist</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" onclick="alert(`Load Page`)">Reports</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white disabled" onclick="alert(`Load Page`)">EXCS</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" onclick="alert(`Load Page`)">Outbound</a>
+        </li>
+    </ul>
 </div>

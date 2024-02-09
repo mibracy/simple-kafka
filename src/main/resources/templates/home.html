@@ -5,9 +5,20 @@
 <head th:replace="~{fragments/head :: default}" />
     <body>
         <div class="float-end m-2 me-5">
-            <button id="h2-console" class="btn btn-sm btn-outline-dark">Console</button>
+            <h1 th:text="${sourceLoad}" />
+            <div sec:authorize="!isAuthenticated()">
+                <a class="btn btn-sm btn-outline-dark" th:href="@{/oauth2/authorization/okta}">Log In</a>
+            </div>
+            <div sec:authorize="isAuthenticated()" class="text-end">
+                <h4 th:text="|💌 ${user}!|" />
+                <button id="h2-console" class="btn btn-sm btn-outline-dark">Console</button>
+                <form name="logoutForm" th:action="@{/logout}" method="post">
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Log Out</button>
+                </form>
+            </div>
         </div>
         <div th:replace="~{fragments/demos :: temperature}" />
         <div th:replace="~{fragments/demos :: liveTable}" />
+        <div th:replace="~{fragments/demos :: nav}" />
     </body>
 </html>
