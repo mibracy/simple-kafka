@@ -28,27 +28,30 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.1.2.RELEASE'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.5.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
     implementation 'org.springframework.security:spring-security-core:5.8.8'
 
+    implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.oracle.database.jdbc:ojdbc11:23.3.0.23.09'
     implementation 'com.h2database:h2:2.2.224'
     implementation 'com.thoughtworks.xstream:xstream:1.4.20'
     implementation 'net.datafaker:datafaker:1.9.0'
 
+    implementation 'com.okta.spring:okta-spring-boot-starter:3.0.6'
     implementation 'org.webjars:webjars-locator:0.50'
     implementation 'org.webjars:bootstrap:5.3.2'
+    implementation 'org.webjars:popper.js:2.11.7'
     implementation 'org.webjars:datatables:1.13.5'
     implementation 'org.webjars:datatables-buttons:2.4.1'
     implementation 'org.webjars:jquery:3.7.1'
     implementation 'org.webjars:stomp-websocket:2.3.4'
     implementation 'org.webjars:sockjs-client:1.5.1'
     implementation 'org.webjars:momentjs:2.29.4'
-    implementation 'org.webjars.npm:chart.js:4.4.0'
+    implementation 'org.webjars.npm:chart.js:4.4.2'
     implementation 'org.webjars.npm:dompurify:3.0.6'
     implementation 'org.webjars:jszip:3.10.1'
     implementation 'org.webjars.bower:pdfmake:0.2.7'
@@ -59,7 +62,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation platform('org.junit:junit-bom:5.10.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'org.assertj:assertj-core:3.24.2'
+    testImplementation 'org.assertj:assertj-core:3.25.3'
 }
 
 configurations {
