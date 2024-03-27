@@ -6,7 +6,7 @@
     <link th:href="@{/webjars/datatables/css/jquery.dataTables.css}" rel="stylesheet">
     <link th:href="@{/webjars/datatables-buttons/css/buttons.dataTables.min.css}" rel="stylesheet">
 
-    <link th:href="@{/css/home.css}" rel="stylesheet">
+    <link th:href="@{/css/home.css(version=${#strings.randomAlphanumeric(5)})}" rel="stylesheet">
 
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
@@ -24,5 +24,5 @@
     <script th:src="@{/webjars/momentjs/min/moment.min.js}"></script>
     <script th:src="@{/webjars/chart.js/dist/chart.umd.js}"></script>
 
-    <script th:src="@{/js/home.js}"></script>
+    <script th:src="@{/js/home.js(version=${#strings.randomAlphanumeric(5)})}"></script>
 </head>
