@@ -3,7 +3,10 @@ package org.example.controllers;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.avro.Schema;
+import org.apache.avro.reflect.ReflectData;
 import org.example.data.Event;
+import org.example.data.ObjectDB;
 import org.example.service.ProducerService;
 import org.example.data.KafkaPayload;
 
@@ -48,8 +51,7 @@ public class KafkaController {
 
         var randomUUID = "-" + UUID.randomUUID();
         // send Event directly to 'my-topic' Kafka Broker without validation
-        producer.sendEvent(new KafkaPayload("my-topic", request.getHeader("key")+ randomUUID, event));
-
+        producer.sendEvent(new KafkaPayload("my-topic", request.getHeader("key") + randomUUID, event));
         // return Response in desired format
         response = new ResponseEntity<>( "Event Generated UUID: " + request.getHeader("key") + randomUUID, HttpStatus.OK);
         return response;
@@ -69,6 +71,26 @@ public class KafkaController {
         return response;
     }
 
+    @PostMapping("/api/schema")
+    public ResponseEntity<String> sendArvoSchema(HttpServletRequest request) {
+        // Check for Bearer Token & reject request if invalid
+        var response = authHeaderCheck(request, TOKEN);
+        if (response.getStatusCode().is4xxClientError()) {
+            return response;
+        }
+        Schema EventSch = ReflectData.get().getSchema(Event.class) ;
+        Schema H2UserSch = ReflectData.get().getSchema(KafkaPayload.class) ;
+        Schema KafkaPayloadSch = ReflectData.get().getSchema(KafkaPayload.class) ;
+        Schema ObjectDBSch = ReflectData.get().getSchema(ObjectDB.class) ;
+
+        response = new ResponseEntity<>("Event Schema : " + EventSch.toString()
+                + "H2User Schema : " + H2UserSch.toString()
+                + "KafkaPayload Schema : " + KafkaPayloadSch.toString()
+                + "ObjectDB Schema : " + ObjectDBSch.toString()
+                , HttpStatus.OK);
+
+        return response;
+    }
 
     @PostMapping("/api/listen")
     public ResponseEntity<String> listenToKafkaTopic(@RequestBody String events, HttpServletRequest request) throws Exception {
