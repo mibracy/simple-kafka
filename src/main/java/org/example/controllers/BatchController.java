@@ -47,13 +47,13 @@ public class BatchController {
         Instant instant = Instant.now();
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME.withZone(ZoneId.from(ZoneOffset.UTC));
         String formattedUtcTime = formatter.format(instant);
-        log.info("Formatted UTC time: " + formattedUtcTime);
+        log.info("Formatted UTC time: {}", formattedUtcTime);
 
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         ZoneId centralZoneId = ZoneId.of("America/Chicago");
         ZonedDateTime centralTime = instant.atZone(centralZoneId);
         String formattedCentralTime = formatter.format(centralTime);
-        log.info("Formatted Central time: " + formattedCentralTime);
+        log.info("Formatted Central time: {}", formattedCentralTime);
 
         var randomUUID = "test-" + UUID.randomUUID();
         // Send Real-Time Update to display
@@ -107,8 +107,15 @@ public class BatchController {
         JsonArray items = jo.getAsJsonArray("items");
         JsonArray countries = jo.getAsJsonArray("ship_to_countries");
 
-        items.forEach(i -> log.info(i.toString()));
-        countries.forEach(i -> log.info("country: " + i));
+        items.forEach(i -> {
+            JsonObject item = i.getAsJsonObject().get("item").getAsJsonObject();
+
+            String id = item.get("id").getAsString();
+            String code = item.get("code").getAsString();
+            String description = item.get("description").getAsString();
+            log.info("#{} code={} description: {}", id, code, description);
+        });
+        countries.forEach(i -> log.info("country: {}", i.getAsString()));
 
         return jo.toString();
     }
