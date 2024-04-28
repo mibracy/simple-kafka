@@ -11,6 +11,7 @@ import org.example.service.ProducerService;
 import org.example.data.KafkaPayload;
 
 import org.example.sql.EventRepository;
+import org.example.sql.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -30,11 +31,11 @@ public class KafkaController {
     @Value("${bearer}")
     private String TOKEN;
     private final ProducerService producer;
-    private final EventRepository eventRepo;
+    private final UserRepository eventRepo;
     private final SmartValidator validator;
 
     @Autowired
-    public KafkaController(EventRepository eventRepo, ProducerService producer,
+    public KafkaController(UserRepository eventRepo, ProducerService producer,
                            SmartValidator validator) {
         this.producer = producer;
         this.eventRepo = eventRepo;
@@ -115,11 +116,11 @@ public class KafkaController {
             if (!errors.hasErrors()) {
                 event.setTopic("kafka-sent-good");
                 producer.sendEvent(event); // Sends to Kafka Broker
-                eventRepo.save(new Event(event)); // Saves to DB
+//                eventRepo.save(new Event(event)); // Saves to DB
             } else {
                 event.setTopic("error-sent-oops");
                 producer.sendEvent(event); // Sends error to Kafka Broker
-                eventRepo.save(new Event(event).isError()); // Saves error to DB
+//                eventRepo.save(new Event(event).isError()); // Saves error to DB
             }
         });
 

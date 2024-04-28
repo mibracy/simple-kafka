@@ -13,12 +13,12 @@ import jakarta.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@XStreamAlias("user")
-public class H2User {
+@XStreamAlias("Users")
+public class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "h2user_GEN")
-    @SequenceGenerator(name = "h2user_GEN", sequenceName = "h2user_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "user_GEN")
+    @SequenceGenerator(name = "user_GEN", sequenceName = "USERS_NAME", allocationSize = 1)
     private long id;
 
     @NotBlank
@@ -28,7 +28,7 @@ public class H2User {
     private String email;
 
 
-    public H2User(String name, String email) {
+    public Users(String name, String email) {
         this.name = name;
         this.email = email;
     }

@@ -14,7 +14,7 @@ public class ObjectDB {
     private ArrayList<Object> data = new ArrayList<>();
 
     // Copy and modify the Iterable<?> for any new types
-    public ObjectDB(Iterable<H2User> all) {
+    public ObjectDB(Iterable<Users> all) {
         if (all != null){
             data.add(all);
         }

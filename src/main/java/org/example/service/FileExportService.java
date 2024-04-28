@@ -8,9 +8,10 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.example.data.H2User;
+
 import org.example.data.KafkaPayload;
 import org.example.data.ObjectDB;
+import org.example.data.Users;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -87,7 +88,7 @@ public class FileExportService {
         XStream xStream = new XStream(new StaxDriver());
 
         // Add any data classes with custom @XStreamAlias("")
-        xStream.processAnnotations(H2User.class);
+        xStream.processAnnotations(Users.class);
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         OutputStreamWriter writer = new OutputStreamWriter(stream, StandardCharsets.UTF_8);

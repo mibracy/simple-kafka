@@ -14,6 +14,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -42,7 +44,7 @@ public class BatchController {
      * Log run to file
      */
     @Scheduled(cron = "0 * * * * *") // Every minute
-    public void scheduleTaskUsingCronExpression() {
+    public void scheduleTaskUsingCronExpression() throws UnknownHostException {
         // Format time for output UTC / Central / Dynamic
         Instant instant = Instant.now();
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME.withZone(ZoneId.from(ZoneOffset.UTC));
@@ -55,7 +57,8 @@ public class BatchController {
         String formattedCentralTime = formatter.format(centralTime);
         log.info("Formatted Central time: {}", formattedCentralTime);
 
-        var randomUUID = "test-" + UUID.randomUUID();
+        var randomUUID = InetAddress.getLocalHost().getHostName() +"-"+ UUID.randomUUID();
+
         // Send Real-Time Update to display
         var payMap = new HashMap<String, String>();
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -68,8 +71,6 @@ public class BatchController {
         var kP = new KafkaPayload(payMap.get("topic"), payMap.get("key"), payMap.get("value"));
 
         producer.sendEvent(kP);
-        template.convertAndSend("/topic/listen", payMap);
-
     }
 
     //  implementation 'com.google.code.gson:gson:2.10.1'

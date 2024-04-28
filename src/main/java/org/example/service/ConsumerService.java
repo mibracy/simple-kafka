@@ -39,7 +39,7 @@ public class ConsumerService {
         }
     }
 
-    @KafkaListener(topics="first-count")
+    @KafkaListener(topics= {"first-count","cron"})
     public void consume(ConsumerRecord<String, KafkaPayload> payload) {
         var payMap = new HashMap<String, String>();
         var sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -49,6 +49,7 @@ public class ConsumerService {
         payMap.put("value", String.valueOf(payload.value()));
         payMap.put("time", sdf.format(payload.timestamp()));
 
+        template.convertAndSend("/topic/temperature", payload.offset());
         template.convertAndSend("/topic/listen", payMap);
     }
 
