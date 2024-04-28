@@ -1,13 +1,13 @@
 <!--/* Temperature fragment */-->
 <div th:fragment="temperature">
     <div class="alert alert-secondary temperature" role="alert">
-        <p class="text-center">Current Temperature : <b id="temperature">0</b></p>
+        <p class="text-center">Current Offset : <b id="temperature">0</b></p>
     </div>
     <div class="model">
         <div class="modal-dialog chartModal" >
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Temperature</h5>
+                    <h5 class="modal-title">Count Graph</h5>
                 </div>
                 <div class="model-body">
                     <div class="container chartContainer">
@@ -22,8 +22,8 @@
 <!--/* Live Table fragment */-->
 <div th:fragment="liveTable">
     <div id="content">
-        <button id="inject" class="btn btn-sm btn-outline-dark">Purify XSS</button>
-        <button id="load" class="btn btn-sm btn-outline-dark">Load POST</button>
+<!--        <button id="inject" class="btn btn-sm btn-outline-dark">Purify XSS</button>-->
+<!--        <button id="load" class="btn btn-sm btn-outline-dark">Load POST</button>-->
         <a th:href="@{/home}">
             <button id="getLoad" class="btn btn-sm btn-outline-dark">Clear Screen</button>
         </a>
