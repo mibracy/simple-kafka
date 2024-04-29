@@ -39,7 +39,7 @@ dependencies {
     implementation 'com.oracle.database.jdbc:ojdbc11:23.3.0.23.09'
     implementation 'com.h2database:h2:2.2.224'
     implementation 'com.thoughtworks.xstream:xstream:1.4.20'
-    implementation 'net.datafaker:datafaker:1.9.0'
+    implementation 'net.datafaker:datafaker:2.2.2'
 
     implementation 'com.okta.spring:okta-spring-boot-starter:3.0.6'
     implementation 'org.webjars:webjars-locator:0.50'
