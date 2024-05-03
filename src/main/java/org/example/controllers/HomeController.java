@@ -58,7 +58,7 @@ public class HomeController {
         // Process request
         var gson = new Gson();
         var map = gson.fromJson(body, Map.class);
-        log.info("manifest:" + map.get("manifest"));
+        log.info("manifest:{}", map.get("manifest"));
         map.remove("note");
 
         // Send Real-Time Update to display

@@ -46,22 +46,22 @@ public class BatchController {
     @Scheduled(cron = "0 * * * * *") // Every minute
     public void scheduleTaskUsingCronExpression() throws UnknownHostException {
         // Format time for output UTC / Central / Dynamic
-        Instant instant = Instant.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME.withZone(ZoneId.from(ZoneOffset.UTC));
-        String formattedUtcTime = formatter.format(instant);
+        var instant = Instant.now();
+        var formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME.withZone(ZoneId.from(ZoneOffset.UTC));
+        var formattedUtcTime = formatter.format(instant);
         log.info("Formatted UTC time: {}", formattedUtcTime);
 
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        ZoneId centralZoneId = ZoneId.of("America/Chicago");
-        ZonedDateTime centralTime = instant.atZone(centralZoneId);
-        String formattedCentralTime = formatter.format(centralTime);
+        var centralZoneId = ZoneId.of("America/Chicago");
+        var centralTime = instant.atZone(centralZoneId);
+        var formattedCentralTime = formatter.format(centralTime);
         log.info("Formatted Central time: {}", formattedCentralTime);
 
         var randomUUID = InetAddress.getLocalHost().getHostName() +"-"+ UUID.randomUUID();
 
         // Send Real-Time Update to display
         var payMap = new HashMap<String, String>();
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        var sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
         payMap.put("topic", "cron" );
         payMap.put("key", randomUUID);
@@ -76,10 +76,10 @@ public class BatchController {
     //  implementation 'com.google.code.gson:gson:2.10.1'
     //  implementation 'net.datafaker:datafaker:2.1.0'
     private String mockJson() {
-        Gson gson = new Gson();
-        Faker faker = new Faker();
+        var gson = new Gson();
+        var faker = new Faker();
 
-        String jsonString = "{\n" +
+        var jsonString = "{\n" +
                 "    \"items\": [\n" +
                 "        {\n" +
                 "            \"item\": {\n" +
@@ -94,6 +94,12 @@ public class BatchController {
                 "                \"code\": \"" + faker.number().randomNumber(13,true) + "\",\n" +
                 "                \"description\": \"" + faker.science().tool() + "\"\n" +
                 "            }\n" +
+                "        },\n" +
+                "        {\n" +
+                "            \"item\": {\n" +
+                "                \"id\": \"3\",\n" +
+                "                \"description\": \"" + faker.starTrek().klingon() + "\"\n" +
+                "            }\n" +
                 "        }\n" +
                 "    ],\n" +
                 "    \"ship_to_countries\": [\n" +
@@ -102,19 +108,25 @@ public class BatchController {
                 "    ]\n" +
                 "}";
 
-        JsonElement je = gson.fromJson(jsonString, JsonElement.class);
-        JsonObject jo = je.getAsJsonObject();
+        var je = gson.fromJson(jsonString, JsonElement.class);
+        var jo = je.getAsJsonObject();
 
-        JsonArray items = jo.getAsJsonArray("items");
-        JsonArray countries = jo.getAsJsonArray("ship_to_countries");
+        var items = jo.getAsJsonArray("items");
+        var countries = jo.getAsJsonArray("ship_to_countries");
 
         items.forEach(i -> {
             JsonObject item = i.getAsJsonObject().get("item").getAsJsonObject();
 
-            String id = item.get("id").getAsString();
-            String code = item.get("code").getAsString();
-            String description = item.get("description").getAsString();
-            log.info("#{} code={} description: {}", id, code, description);
+            var id = String.valueOf(item.get("id"));
+            var code = String.valueOf(item.get("code"));
+            var description = String.valueOf(item.get("description"));
+
+            if ("null".equals(code)) {
+                log.info("#{} description: {}", id, description);
+            } else {
+                log.info("#{} code={} description: {}", id, code, description);
+            }
+
         });
         countries.forEach(i -> log.info("country: {}", i.getAsString()));
 

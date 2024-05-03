@@ -26,7 +26,7 @@ public class ConsumerService {
 
     @KafkaListener(topics = "my-topic")
     public void genericListen(String event) {
-        log.info("New event: " + event);
+        log.info("New event: {}", event);
     }
 
     @KafkaListener(topics="temperature")

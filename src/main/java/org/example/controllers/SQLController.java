@@ -2,9 +2,11 @@ package org.example.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import net.datafaker.Faker;
+import org.example.data.KafkaPayload;
 import org.example.data.ObjectDB;
 import org.example.data.Users;
 import org.example.service.FileExportService;
+import org.example.service.ProducerService;
 import org.example.sql.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +19,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.example.config.SecurityConfig.authHeaderCheck;
@@ -32,18 +38,21 @@ public class SQLController {
     private final SimpMessagingTemplate simp;
     private final SmartValidator validator;
     private final FileExportService exportService;
+    private final ProducerService producer;
 
     @Autowired
     public SQLController(UserRepository userRepo, SimpMessagingTemplate simp,
-                         SmartValidator validator, FileExportService exportService) {
+                         SmartValidator validator, FileExportService exportService, ProducerService producer) {
         this.userRepo = userRepo;
         this.simp = simp;
         this.validator = validator;
         this.exportService = exportService;
+        this.producer = producer;
+
     }
 
     @PostMapping("/sql/test_users")
-    public ResponseEntity<String> testDBKafkaUsers(HttpServletRequest request) {
+    public ResponseEntity<String> testDBKafkaUsers(HttpServletRequest request) throws UnknownHostException {
         // Check for Bearer Token & reject request if invalid
         var response = authHeaderCheck(request, BEARER);
 //        if (response.getStatusCode().is4xxClientError()) {
@@ -58,9 +67,9 @@ public class SQLController {
         for (int i = 0; i < 10000; i++) {
             var faker = new Faker();
             var name = faker.futurama().character();
-            var email = faker.dungeonsAndDragons().monsters();
+            var email = faker.dungeonsAndDragons().monsters() + "@" + InetAddress.getLocalHost().getHostName().toLowerCase() + ".host";
 
-            var userRandy = new Users(name, email+"@local.host");
+            var userRandy = new Users(name, email);
 
             users.add(userRandy);
         }
@@ -71,10 +80,14 @@ public class SQLController {
             var errors = new BeanPropertyBindingResult(user, user.getClass().getName());
             validator.validate(user, errors);
 
+            var event = new KafkaPayload("user", String.valueOf(UUID.randomUUID()), "\"user\":{"+user+"}\"");
+
             if (!errors.hasErrors()) {
                 userRepo.save(user);
+                producer.sendEvent(event);
             } else {
-                errorCount.getAndIncrement();
+                event.setValue("\"error_"+ errorCount.getAndIncrement()+"\":{"+errors.getAllErrors()+"}\"");
+                producer.sendEvent(event);
             }
         });
 

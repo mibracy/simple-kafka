@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 public class DataSourceConfig {
 
 //    @Value("${sql.connector:jdbc:h2:file:../temp/h2}")
-    @Value("${ora.sql.connector:jdbc:oracle:thin:@localhost:32769:ORCLCDB}")
+    @Value("${ora.sql.connector:jdbc:oracle:thin:@localhost:32774:ORCLCDB}")
     public String server;
 
 //    @Value("${sql.driver:org.h2.Driver}")

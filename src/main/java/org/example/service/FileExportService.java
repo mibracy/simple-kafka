@@ -79,20 +79,20 @@ public class FileExportService {
      * Use Streams to create file on system
      */
     private static void writeUsingOutputStream(String data, String fn) throws IOException {
-        try (FileWriter fileWriter = new FileWriter(fn)) {
+        try (var fileWriter = new FileWriter(fn)) {
             fileWriter.write(data);
         }
     }
 
     private static String convertObjectToxStreamXML(Object data, String rootName) {
-        XStream xStream = new XStream(new StaxDriver());
+        var xStream = new XStream(new StaxDriver());
 
         // Add any data classes with custom @XStreamAlias("")
         xStream.processAnnotations(Users.class);
 
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        OutputStreamWriter writer = new OutputStreamWriter(stream, StandardCharsets.UTF_8);
-        HierarchicalStreamWriter xmlWriter = new PrettyPrintWriter(writer);
+        var stream = new ByteArrayOutputStream();
+        var writer = new OutputStreamWriter(stream, StandardCharsets.UTF_8);
+        var xmlWriter = new PrettyPrintWriter(writer);
         xStream.marshal(data, xmlWriter);
 
         return stream.toString(StandardCharsets.UTF_8)
