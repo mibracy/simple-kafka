@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="30 seconds">
     <property name="logPath" value="${catalina.home}/logs" />
-    <property name="rollingFileName" value="kafka" />
+    <property name="rollingFileName" value="${log_filename:-simple}" />
     <property name="pattern" value="%d [%-6p] %c - %m%n" />
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
