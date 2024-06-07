@@ -9,7 +9,7 @@ Help() {
   echo "  arg1  Required argument 1 (e.g., a directory path)"
 }
 
-#Function to create JSON representation of a directory
+# Function to create JSON representation of a directory
 create_dir_json() {
     local dir="$1"
     local dir_name=$(basename "$dir")
@@ -18,22 +18,23 @@ create_dir_json() {
     local newest_file=$(find "$dir" -maxdepth 1 -type f -printf '%T@ %p\n' | sort -n | tail -n 1 | cut -d' ' -f2-)
     local oldest_date=$(stat -c '%y' "$oldest_file" | cut -d' ' -f1)
     local newest_date=$(stat -c '%y' "$newest_file" | cut -d' ' -f1)
-    local children=()
+    local runtime=$(date -I )
+    local resources=$(echo "CPU `LC_ALL=C top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1}'`% RAM `free -m | awk '/Mem:/ { printf("%3.1f%%", $3/$2*100) }'` HDD `df -h / | awk '/\// {print $(NF-1)}'`")
 
-    for subdir in "$dir"/; do
-        if [ -d "$subdir" ]; then
-            children+=("$(create_dir_json "$subdir")")
-        fi
-    done
+    # Convert the Bash array to JSON format
+    local json_output="{ \"name\": \"$dir_name\", \"path\": \"$dir\", \"file_count\": \"$file_count\", \"oldest_date\": \"$oldest_date\", \"newest_date\": \"$newest_date\", \"runtime\": \"$runtime\",\"resources: \"$resources\" }"
 
-    local dir_json=$(jq -n --arg name "$dir_name" --arg file_count "$file_count" --arg oldest_date "$oldest_date" --arg newest_date "$newest_date" '{name: $name, file_count: $file_count, oldest_date: $oldest_date, newest_date: $newest_date, children: []}')
+    # Send Event to Kafka REST
+#    curl -X POST \
+#      http://<<host>>/kafka/api/send \
+#      -H 'Content-Type: application/json' \
+#      -H 'topic: analytics' \
+#      -H 'Authorization: Bearer ******
+#      -d "$json_output"
 
-    if [ "${#children[@]}" -gt 0 ]; then
-        dir_json=$(jq --argjson children "${children[]}" "$dir_json" '.children = $children')
-    fi
-
-    echo "$dir_json" >> file_analytic.json
+    echo "$json_output" >> file_analytic.json
 }
+
 
 # Process the input options and arguments
 while getopts ":ha:" option; do
