@@ -22,7 +22,7 @@ create_dir_json() {
     local resources=$(echo "CPU `LC_ALL=C top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1}'`% RAM `free -m | awk '/Mem:/ { printf("%3.1f%%", $3/$2*100) }'` HDD `df -h / | awk '/\// {print $(NF-1)}'`")
 
     # Convert the Bash array to JSON format
-    local json_output="{ \"name\": \"$dir_name\", \"path\": \"$dir\", \"file_count\": \"$file_count\", \"oldest_date\": \"$oldest_date\", \"newest_date\": \"$newest_date\", \"runtime\": \"$runtime\",\"resources: \"$resources\" }"
+    local json_output="{ \"name\": \"$dir_name\", \"path\": \"$dir\", \"file_count\": \"$file_count\", \"oldest_date\": \"$oldest_date\", \"newest_date\": \"$newest_date\", \"runtime\": \"$runtime\",\"resources\": \"$resources\" }"
 
     # Send Event to Kafka REST
 #    curl -X POST \
