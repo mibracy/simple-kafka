@@ -19,5 +19,14 @@
 }
 
 body {
-    background: rgb(255, 184, 144);
+    background: rgb(17, 94, 89, 0.42);
+}
+
+.nav-link:focus, .nav-link:hover {
+    /*background-color: rgba(64, 66, 70, 0.69) !important;*/
+    background: linear-gradient(
+            45deg,
+            hsla(168, 85%, 52%, 0.5),
+            hsla(263, 88%, 45%, 0.5) 100%
+    )
 }

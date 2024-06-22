@@ -1,6 +1,6 @@
 package org.example.data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +30,31 @@ public class Event {
         this.error = true;
         return this;
     }
+
+/*
+    {
+  "type" : "record",
+  "name" : "Event",
+  "namespace" : "org.example.data",
+  "fields" : [ {
+    "name" : "error",
+    "type" : "boolean"
+  }, {
+    "name" : "id",
+    "type" : "long"
+  }, {
+    "name" : "kafka_key",
+    "type" : "string"
+  }, {
+    "name" : "kafka_topic",
+    "type" : "string"
+  }, {
+    "name" : "kafka_value",
+    "type" : "string"
+  } ]
+}
+
+ */
 
 
 //    CREATE TABLE EVENT(ID INT PRIMARY KEY, KAFKA_TOPIC VARCHAR(255), KAFKA_KEY VARCHAR(255), KAFKA_VALUE VARCHAR(255), ERROR BOOLEAN);

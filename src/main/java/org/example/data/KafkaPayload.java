@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
@@ -22,3 +22,21 @@ public class KafkaPayload {
    private String value;
 
 }
+/* AVRO Schema
+{
+  "type" : "record",
+  "name" : "KafkaPayload",
+  "namespace" : "org.example.data",
+  "fields" : [ {
+    "name" : "key",
+    "type" : "string"
+  }, {
+    "name" : "topic",
+    "type" : "string"
+  }, {
+    "name" : "value",
+    "type" : "string"
+  } ]
+}
+
+ */

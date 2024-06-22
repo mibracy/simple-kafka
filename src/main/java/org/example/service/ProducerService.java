@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
-import org.springframework.util.concurrent.ListenableFuture;
 
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 @Component
 public class ProducerService {
@@ -19,7 +19,7 @@ public class ProducerService {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public ListenableFuture<SendResult<String, String>> sendEvent(KafkaPayload event) {
+    public CompletableFuture<SendResult<String, String>> sendEvent(KafkaPayload event) {
         return kafkaTemplate.send(event.getTopic(), event.getKey() , event.getValue());
     }
 

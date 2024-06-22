@@ -4,7 +4,7 @@ const config = {
     data: {
         labels: [],
         datasets: [{
-            label: 'Temperature',
+            label: 'Offset',
             backgroudColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
             data: [],
@@ -16,7 +16,7 @@ const config = {
         responsive: true,
         title: {
             display: true,
-            text: 'Temperature'
+            text: 'Offset'
         },
         tooltips: {
             mode: 'index',
@@ -61,6 +61,48 @@ const h2DB = function() {
 }
 /* Document Ready Event */
 $(document).ready(function() {
+    $("#load").on('click', function () {
+        // Create request object
+        var request = new Request(location.origin + '/kafka/landing',
+            { method: 'POST',
+                body: JSON.stringify({
+                    "manifest":"&sometimes$#*^;'09()",
+                    "note": {
+                        "special": "&sometimes$#*^;'09()",
+                        "to": "Tove",
+                        "from": "Jani",
+                        "heading": "Reminder",
+                        "body": "Don't forget me this weekend!"
+                    }
+                }),
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    'Authorization' : 'Bearer test',
+                },
+            });
+        // Now use it!
+
+        fetch(request)
+            .then(resp => {
+                if (resp.redirected) {
+                    // resp.url contains the string URL to redirect to
+                    console.log(resp.url)
+                    window.location.href = resp.url;
+                } else {
+                    // data.form contains the HTML for the replacement form
+                    return resp.text()
+                }
+            })
+            .then (async html => {
+                document.body.innerHTML = await html;
+                let scripts = document.getElementsByTagName("script");
+                for (let i = 0, l = scripts.length; i < l; i++) eval(scripts[i].innerText);
+            })
+            .catch(err => {
+                console.log(err)
+            });
+    });
+
     table = $('#kafkaTable').DataTable({
         order: [[3, 'desc']],
         dom: 'Blfrtip',

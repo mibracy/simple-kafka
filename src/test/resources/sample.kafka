@@ -1,0 +1,31 @@
+
+CONSUMER my-group-id-1
+topic: hot-topic
+partitions: 0
+from: 1
+
+CONSUMER hot-group-id-earliest
+topic: hot-topic
+partitions: 0
+from: earliest
+
+CONSUMER hot-group-id-latest
+topic: hot-topic
+partitions: 0
+from: latest
+
+PRODUCER keyed-message
+topic: hot-topic
+key: mykeyq
+headers: header1=value1, header2=value2
+record content
+
+
+###
+
+PRODUCER non-keyed-json-message
+topic: hot-topic
+{
+    "type": "my_test_event-{{random.number}}"
+}
+
