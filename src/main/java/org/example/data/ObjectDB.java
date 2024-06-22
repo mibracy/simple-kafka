@@ -20,3 +20,24 @@ public class ObjectDB {
         }
     }
 }
+
+/* AVRO Schema
+{
+  "type" : "record",
+  "name" : "ObjectDB",
+  "namespace" : "org.example.data",
+  "fields" : [ {
+    "name" : "data",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "Object",
+        "namespace" : "java.lang",
+        "fields" : [ ]
+      },
+      "java-class" : "java.util.ArrayList"
+    }
+  } ]
+}
+ */

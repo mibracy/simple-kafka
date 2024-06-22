@@ -38,3 +38,23 @@ public class Users {
 //    CREATE SEQUENCE H2USER_SEQ START WITH 1 INCREMENT BY 1;
 //    https://www.h2database.com/html/commands.html
 }
+
+
+/* AVRO Schema
+{
+  "type" : "record",
+  "name" : "Users",
+  "namespace" : "org.example.data",
+  "fields" : [ {
+    "name" : "email",
+    "type" : "string"
+  }, {
+    "name" : "id",
+    "type" : "long"
+  }, {
+    "name" : "name",
+    "type" : "string"
+  } ]
+}
+
+ */
