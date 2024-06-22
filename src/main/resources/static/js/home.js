@@ -4,7 +4,7 @@ const config = {
     data: {
         labels: [],
         datasets: [{
-            label: 'Temperature',
+            label: 'Offset',
             backgroudColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
             data: [],
@@ -16,7 +16,7 @@ const config = {
         responsive: true,
         title: {
             display: true,
-            text: 'Temperature'
+            text: 'Offset'
         },
         tooltips: {
             mode: 'index',
