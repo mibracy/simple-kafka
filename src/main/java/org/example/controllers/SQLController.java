@@ -80,14 +80,14 @@ public class SQLController {
             var errors = new BeanPropertyBindingResult(user, user.getClass().getName());
             validator.validate(user, errors);
 
-            var event = new KafkaPayload("user", String.valueOf(UUID.randomUUID()), "\"user\":{"+user+"}\"");
+//            var event = new KafkaPayload("user", String.valueOf(UUID.randomUUID()), ("\"user\":{"+user+"}\"").getBytes());
 
             if (!errors.hasErrors()) {
                 userRepo.save(user);
-                producer.sendEvent(event);
+//                producer.sendEvent(event);
             } else {
-                event.setValue("\"error_"+ errorCount.getAndIncrement()+"\":{"+errors.getAllErrors()+"}\"");
-                producer.sendEvent(event);
+//                event.setValue(("\"error_"+ errorCount.getAndIncrement()+"\":{"+errors.getAllErrors()+"}\"").getBytes());
+//                producer.sendEvent(event);
             }
         });
 

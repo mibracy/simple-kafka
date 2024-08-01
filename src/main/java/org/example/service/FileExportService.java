@@ -71,7 +71,7 @@ public class FileExportService {
             }
 
             // send Event to Kafka Topic
-            producer.sendEvent(new KafkaPayload(type + "_events", fileName, "size=" + odb.getData().size()));
+//            producer.sendEvent(new KafkaPayload(type + "_events", fileName, ("size=" + odb.getData().size()).getBytes()));
         });
     }
 

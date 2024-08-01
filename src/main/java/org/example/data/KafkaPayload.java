@@ -1,5 +1,6 @@
 package org.example.data;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,21 +23,3 @@ public class KafkaPayload {
    private String value;
 
 }
-/* AVRO Schema
-{
-  "type" : "record",
-  "name" : "KafkaPayload",
-  "namespace" : "org.example.data",
-  "fields" : [ {
-    "name" : "key",
-    "type" : "string"
-  }, {
-    "name" : "topic",
-    "type" : "string"
-  }, {
-    "name" : "value",
-    "type" : "string"
-  } ]
-}
-
- */

@@ -10,14 +10,12 @@ import net.datafaker.Faker;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import org.example.data.Aed;
-import org.example.data.KafkaPayload;
 import org.example.service.ProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
@@ -83,13 +81,13 @@ public class BatchController {
         payMap.put("value", mockJson() );
         payMap.put("time", sdf.format(new Date())); // Dynamic timezone option
 
-        var kP = new KafkaPayload(payMap.get("topic"), payMap.get("key"), payMap.get("value"));
+//        var kP = new KafkaPayload(payMap.get("topic"), payMap.get("key"), payMap.get("value").getBytes());
 //        java.net.Proxy proxy = new Proxy(Proxy.Type.HTTP,  new InetSocketAddress(proxyHost, proxyPort));
 //        OkHttpClient client = new OkHttpClient.Builder().proxy(proxy).build();
 //
 //        Retrofit.Builder builder = new Retrofit.Builder().client(client);
 //        Retrofit retrofit = builder.build();
-        producer.sendEvent(kP);
+//        producer.sendEvent(kP);
     }
 
     @Value(value = "classpath:inputFiles.csv")
@@ -97,7 +95,7 @@ public class BatchController {
     @Value(value = "classpath:dummy500.json")
     private Resource json;
 
-    @Scheduled(cron = "0 * * * * *") // Every 5 minutes
+//    @Scheduled(cron = "0 * * * * *") // Every 5 minutes
     public void scheduleTask() throws IOException {
         writeJsonOutput(generateJsonArray());
         echoCSV();
@@ -135,8 +133,8 @@ public class BatchController {
                 } else if (JsonToken.END_OBJECT.equals(nextToken)) {
                     reader.endObject();
                     log.debug("Complete -> {}", score);
-                    KafkaPayload kP = new KafkaPayload("aed", score.getName(), score.getDate());
-                    producer.sendEvent(kP);
+//                    KafkaPayload kP = new KafkaPayload("aed", score.getName(), score.getDate().getBytes());
+//                    producer.sendEvent(kP);
                 } else {
                     log.info("Finished Array!");
                     reader.endArray();

@@ -30,8 +30,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class HomeController {
 
     private final SimpMessagingTemplate template;
-    AtomicInteger hitCnt = new AtomicInteger();
-    ConcurrentHashMap<String, String> sessionRef = new ConcurrentHashMap<>();
 
     @Autowired
     public HomeController(SimpMessagingTemplate template) {
@@ -44,39 +42,6 @@ public class HomeController {
 
         model.addAttribute("user", (principal != null) ? principal.getFullName() : "");
         return "home";
-    }
-
-    @PostMapping("/landing")
-    public String landing(HttpServletRequest req, HttpServletResponse resp,
-                          @RequestBody String body, Model model) throws IOException {
-        // Check for Auth
-        if (req.getHeader("Authorization") == null) {
-            resp.sendError(HttpServletResponse.SC_FORBIDDEN, "Requires Authentication");
-            return null; // return null to indicate your program that the request has finished with the error.
-        }
-
-        // Process request
-        var gson = new Gson();
-        var map = gson.fromJson(body, Map.class);
-        log.info("manifest:{}", map.get("manifest"));
-        map.remove("note");
-
-        // Send Real-Time Update to display
-        var payMap = new HashMap<String, String>();
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-
-        payMap.put("topic", req.getMethod() );
-        payMap.put("key", String.valueOf(map.get("manifest")));
-        payMap.put("value", String.valueOf(map.get("note")));
-        payMap.put("time", sdf.format(new Date()));
-
-        template.convertAndSend("/topic/listen", payMap);
-        template.convertAndSend("/topic/temperature", hitCnt.getAndIncrement());
-
-        model.addAttribute("sourceLoad", String.valueOf(map.get("manifest")));
-
-        return "redirect:/home?manifest="
-                + URLEncoder.encode((String) map.get("manifest"), String.valueOf(StandardCharsets.UTF_8));
     }
 
 }
