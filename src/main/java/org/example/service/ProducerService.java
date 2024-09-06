@@ -3,8 +3,6 @@ package org.example.service;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.example.avro;
-import org.example.avrokey;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;

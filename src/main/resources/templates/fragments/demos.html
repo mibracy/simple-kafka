@@ -1,5 +1,5 @@
 <!--/* Temperature fragment */-->
-<div th:fragment="temperature">
+<div th:fragment="temperature" class="content-sidebar-spaced">
     <div class="alert alert-secondary temperature" role="alert">
         <p class="text-center">Current : <b id="temperature">0</b></p>
     </div>
@@ -21,11 +21,11 @@
 
 <!--/* Live Table fragment */-->
 <div th:fragment="liveTable">
-    <div id="content">
-<!--        <button id="inject" class="btn btn-sm btn-outline-dark">Purify XSS</button>-->
-<!--        <button id="load" class="btn btn-sm btn-outline-dark">Load POST</button>-->
+    <div id="content" class="content-sidebar-spaced">
+<!--        <button id="inject" class="btn btn-sm btn-outline-dark btn-outline-custom">Purify XSS</button>-->
+<!--        <button id="load" class="btn btn-sm btn-outline-dark btn-outline-custom">Load POST</button>-->
         <a th:href="@{/home}">
-            <button id="getLoad" class="btn btn-sm btn-outline-dark">Clear Screen</button>
+            <button id="getLoad" class="btn btn-sm btn-outline-dark btn-outline-custom">Clear Screen</button>
         </a>
 
         <h5 class="text-center">Live Consumer</h5>

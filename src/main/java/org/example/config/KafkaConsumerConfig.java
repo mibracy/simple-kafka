@@ -2,6 +2,7 @@ package org.example.config;
 
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import io.confluent.kafka.serializers.KafkaAvroSerializerConfig;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,7 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 
 import java.util.HashMap;
 
+@Slf4j
 @Configuration
 public class KafkaConsumerConfig {
 

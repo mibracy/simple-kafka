@@ -7,11 +7,11 @@
         <div class="float-end m-2 me-5">
             <h1 th:text="${sourceLoad}" />
             <div sec:authorize="!isAuthenticated()">
-                <a class="btn btn-sm btn-outline-dark" th:href="@{/oauth2/authorization/okta}">Log In</a>
+                <a class="btn btn-sm btn-outline-dark btn-outline-custom" th:href="@{/oauth2/authorization/okta}">Log In</a>
             </div>
             <div sec:authorize="isAuthenticated()" class="text-end">
                 <h4 th:text="|💌 ${user}!|" />
-                <button id="h2-console" class="btn btn-sm btn-outline-dark">Console</button>
+                <button id="h2-console" class="btn btn-sm btn-outline-dark btn-outline-custom">Console</button>
                 <form name="logoutForm" th:action="@{/logout}" method="post">
                     <button type="submit" class="btn btn-sm btn-outline-danger">Log Out</button>
                 </form>

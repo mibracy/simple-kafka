@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
@@ -55,8 +56,8 @@ public class BatchController {
      * Send message to Kafka
      * Log run to file
      */
-//    @Scheduled(cron = "30 * * * * *") // Every 30 seconds
-//    @Scheduled(cron = "0 * * * * *") // Every minute
+    @Scheduled(cron = "30 * * * * *") // Every 30 seconds
+    @Scheduled(cron = "0 * * * * *") // Every minute
     public void scheduleTaskUsingCronExpression() throws UnknownHostException {
         // Format time for output UTC / Central / Dynamic
         var instant = Instant.now();
@@ -81,13 +82,7 @@ public class BatchController {
         payMap.put("value", mockJson() );
         payMap.put("time", sdf.format(new Date())); // Dynamic timezone option
 
-//        var kP = new KafkaPayload(payMap.get("topic"), payMap.get("key"), payMap.get("value").getBytes());
-//        java.net.Proxy proxy = new Proxy(Proxy.Type.HTTP,  new InetSocketAddress(proxyHost, proxyPort));
-//        OkHttpClient client = new OkHttpClient.Builder().proxy(proxy).build();
-//
-//        Retrofit.Builder builder = new Retrofit.Builder().client(client);
-//        Retrofit retrofit = builder.build();
-//        producer.sendEvent(kP);
+        producer.sendEvent(payMap.get("topic"), payMap.get("key"), payMap.get("value"));
     }
 
     @Value(value = "classpath:inputFiles.csv")

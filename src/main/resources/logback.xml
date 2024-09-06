@@ -28,6 +28,8 @@
 
     <logger name="org.springframework" level="OFF" additivity="false"/>
     <logger name="org.apache" level="OFF" additivity="false" />
+    <logger name="org.hibernate" level="OFF" additivity="false" />
+    <logger name="io.confluent" level="OFF" additivity="false" />
 
     <root level="INFO">
         <appender-ref ref="CONSOLE" />

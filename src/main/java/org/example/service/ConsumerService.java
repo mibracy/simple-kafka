@@ -35,7 +35,7 @@ public class ConsumerService {
         return payMap;
     }
 
-    @KafkaListener(topics = "avro")
+    @KafkaListener(topics = {"avro", "cron"})
     public void consumeAvro(ConsumerRecord<Object, Object> payload) {
         Map<String, String> payMap = null;
         payMap = handle(payload);
