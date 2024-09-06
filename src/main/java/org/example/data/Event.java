@@ -1,10 +1,10 @@
 package org.example.data;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
@@ -24,14 +24,13 @@ public class Event {
     public Event(KafkaPayload payload) {
        this.kafka_topic = payload.getTopic();
        this.kafka_key= payload.getKey();
-       this.kafka_value = payload.getValue();
+//       this.kafka_value = Arrays.toString(payload.getValue());
     }
 
     public Event isError() {
         this.error = true;
         return this;
     }
-
 
 //    CREATE TABLE EVENT(ID INT PRIMARY KEY, KAFKA_TOPIC VARCHAR(255), KAFKA_KEY VARCHAR(255), KAFKA_VALUE VARCHAR(255), ERROR BOOLEAN);
 

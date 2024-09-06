@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+    <property name="logPath" value="${catalina.home}/logs" />
+    <property name="rollingFileName" value="${log_filename:-simple}" />
+    <property name="pattern" value="%d [%-6p] %c - %m%n" />
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${pattern}</pattern>
+        </layout>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logPath}/${rollingFileName}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}/${rollingFileName}/%d{yyyy-MM-dd}/${rollingFileName}_%i.log</fileNamePattern>
+                <!-- each archived file's size will be max 10MB -->
+                <maxFileSize>1MB</maxFileSize>
+                <!-- 90 days to keep -->
+                <maxHistory>90</maxHistory>
+                <!-- total size of all archive files, if total size > 50GB, it will delete old archived file -->
+                <totalSizeCap>50GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework" level="OFF" additivity="false"/>
+    <logger name="org.apache" level="OFF" additivity="false" />
+    <logger name="org.hibernate" level="OFF" additivity="false" />
+    <logger name="io.confluent" level="OFF" additivity="false" />
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

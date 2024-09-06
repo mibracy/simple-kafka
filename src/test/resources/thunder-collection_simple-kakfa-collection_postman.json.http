@@ -32,7 +32,7 @@ content-type: application/json
 
 ###
 # @name temperature
-POST https://{{host}}/kafka/api/publish?
+POST http://{{host}}/kafka/api/publish?
     message=42
 
 ###

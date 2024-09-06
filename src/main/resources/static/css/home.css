@@ -18,15 +18,28 @@
     margin: 0 auto;
 }
 
+.content-sidebar-spaced {
+    width: 80% !important;
+    margin: 0 auto !important;
+    margin-top: 1% !important;
+}
+
+.btn-outline-custom {
+    color: #48c789;
+    border-color: #c7485b;
+}
+
+.btn-outline-custom:hover {
+    background-color: #48c789;
+}
+
 body {
-    background: rgb(17, 94, 89, 0.42);
+    background: rgba(26, 29, 48, 0.85);
+    height: 100vh;
+    color: #48c789;
 }
 
 .nav-link:focus, .nav-link:hover {
     /*background-color: rgba(64, 66, 70, 0.69) !important;*/
-    background: linear-gradient(
-            45deg,
-            hsla(168, 85%, 52%, 0.5),
-            hsla(263, 88%, 45%, 0.5) 100%
-    )
+    background: linear-gradient( 45deg, hsl(151, 53%, 53%), hsl(351, 53%, 53%) 100% )
 }

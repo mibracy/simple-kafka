@@ -1,0 +1,28 @@
+event.avsd
+{
+  "type": "record",
+  "name": "Event",
+  "namespace": "org.example.data",
+  "fields": [
+    {
+      "name": "error",
+      "type": "boolean"
+    },
+    {
+      "name": "id",
+      "type": "long"
+    },
+    {
+      "name": "kafka_key",
+      "type": "string"
+    },
+    {
+      "name": "kafka_topic",
+      "type": "string"
+    },
+    {
+      "name": "kafka_value",
+      "type": "string"
+    }
+  ]
+}

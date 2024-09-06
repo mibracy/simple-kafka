@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 public class DataSourceConfig {
 
     @Value("${sql.connector:jdbc:h2:file:../temp/h2}")
-//    @Value("${ora.sql.connector:jdbc:oracle:thin:@localhost:1521:ORCLCDB}")
+//    @Value("${ora.sql.connector:jdbc:oracle:thin:@localhost:32774:ORCLCDB}")
     public String server;
 
     @Value("${sql.driver:org.h2.Driver}")
@@ -29,7 +29,7 @@ public class DataSourceConfig {
 
     @Bean
     public DataSource getDataSource() {
-        DataSourceBuilder<?> ds = DataSourceBuilder.create();
+        var ds = DataSourceBuilder.create();
         ds.driverClassName(driver);
         ds.url(server);
         ds.username(user);
