@@ -6,7 +6,9 @@
   </a>
 </p>
 
-> Example project of a kafka messaging producer and consumer. H2-file database. XML/JSON/PDF flat-file generation. Annotation validation. Websocket used for real time updates. OAUTH2 Google Spring Security. Spring boot gradle project run on tomcat Java-8 compatible.
+> Example project of a kafka messaging producer and consumer. H2-file database. XML/JSON/PDF flat-file generation. Annotation validation. Websocket used for real time updates. OAUTH2 Google Spring Security. Spring boot gradle project run on tomcat 11 & Java-21. 
+
+* Docker [Live Demo](https://tc.mibracy.duckdns.org/kafka)
 
 ## Install
 
