@@ -58,7 +58,7 @@ dependencies {
     implementation 'org.webjars:sockjs-client:1.5.1'
     implementation 'org.webjars:momentjs:2.29.4'
     implementation 'org.webjars.npm:chart.js:4.4.2'
-    implementation 'org.webjars.npm:dompurify:3.1.1'
+    implementation 'org.webjars.npm:dompurify:3.1.6'
     implementation 'org.webjars:jszip:3.10.1'
     implementation 'org.webjars.bower:pdfmake:0.2.7'
 
