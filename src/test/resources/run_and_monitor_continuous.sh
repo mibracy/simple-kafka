@@ -7,7 +7,7 @@ TIMEOUT_SECONDS=$((TIMEOUT_MINUTES * 60))
 echo "Starting process with a timeout of $TIMEOUT_MINUTES minute(s)."
 
 # Run the loop_and_echo script in the background
-/home/mikey/work/loop_and_echo.sh &
+$(pwd)/loop_and_echo.sh &
 
 # Get the process ID (PID) of the background process
 PID=$!

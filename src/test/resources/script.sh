@@ -48,6 +48,8 @@ ask_questions() {
         execute_deployment ;;
       7)
         monitor ;;
+      8)
+        run_and_monitor_continuous ;;
       *)
         clear
         echo -e "\t\tThat isn't a valid option."
@@ -146,6 +148,16 @@ verify_artifact() {
 
 }
 
+execute_deployment() {
+    echo "execute_deployment not implemented"
+}
+
+run_and_monitor_continuous() {
+  clear
+  read -p "Enter the number of minutes to run the script (default=1): " minutes
+  /home/mikey/Documents/GitHub/simple-kafka/src/test/resources/run_and_monitor_continuous.sh "$minutes"
+}
+
 verify_env() {
     if [[ $(whoami) == "mikey" && $(hostname) == "ubertoaster" ]]; then
       echo -e "  -> Yippy Kai-Yee!!" >> "$LOG_FILE"
@@ -181,6 +193,7 @@ function menu {
   echo -e "\t5. Compare contents of Artifact ZIPs."
   echo -e "\t6. Deploy an Artifact ZIP."
   echo -e "\t7. Monitor System."
+  echo -e "\t8. Run and Monitor Continuous."
   echo -e "\t0. Exit menu."
   echo
   echo -en "\t\t Enter option: "
@@ -201,3 +214,5 @@ if ask_questions; then
         cat "$LOG_FILE"
     fi
 fi
+
+exit 0
