@@ -62,8 +62,8 @@ dependencies {
     implementation 'org.webjars:jszip:3.10.1'
     implementation 'org.webjars.bower:pdfmake:0.2.7'
 
-    annotationProcessor 'org.projectlombok:lombok:1.18.32'
-    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.36'
+    compileOnly 'org.projectlombok:lombok:1.18.36'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation platform('org.junit:junit-bom:5.11.0')
