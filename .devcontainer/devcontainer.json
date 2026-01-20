@@ -1,0 +1,62 @@
+{
+	"name": "Java",
+	"image": "mcr.microsoft.com/devcontainers/java",
+
+	// 👇 Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {
+            "installOhMyZsh": true,
+            "configureZshAsDefaultShell": true
+        },
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {"moby":false},
+		"ghcr.io/prulloac/devcontainer-features/bun:1": {},
+		"ghcr.io/devcontainers/features/node:1": {},
+		"ghcr.io/devcontainers/features/java:1": {
+			"version": "latest",
+			"installMaven": false,
+			"installGradle": true
+		},
+		"ghcr.io/schlich/devcontainer-features/playwright:0": {},
+		"ghcr.io/devcontainers-extra/features/tomcat-sdkman:2": {}
+	},
+
+	// 👇 Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": ["9000", "8080"],
+    
+    // 👇 Pass Directory mounts to Container.
+    "mounts": [
+        "source=/path/to/apache-tomcat-11.0.9,target=/opt/tomcat/,type=bind,bind-propagation=rshared"
+    ],
+
+	// 👇 Configure tool-specific properties.
+	    "customizations": {
+        "vscode": {
+            "settings": {
+                        "java.import.gradle.java.home": "/usr/lib/jvm/msopenjdk-current",
+                        "rsp-ui.rsp.java.home": "/usr/lib/jvm/msopenjdk-current",
+                        "workbench.colorTheme": "Night Owl"
+
+                        },
+            "extensions": [
+                "RobbOwen.synthwave-vscode",
+                "bruno-api-client.bruno",
+                "cweijan.vscode-database-client2",
+                "cweijan.dbclient-jdbc",
+                "ms-python.python",
+                "ms-python.debugpy",
+                "redhat.vscode-community-server-connector",
+                "redhat.vscode-xml",
+                "redhat.vscode-yaml",
+                "shardulm94.trailing-spaces",
+                "foxundermoon.shell-format",
+                "ritwickdey.LiveServer",
+                "TomRijndorp.find-it-faster",
+                "Pleiades.java-extension-pack-jdk",
+                "solomonkinard.compare-text"
+            ]
+        }
+    },
+
+	// 👇 Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
