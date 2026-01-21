@@ -36,14 +36,14 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable).headers(head -> head
                         .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers(AUTH_SECURED).fullyAuthenticated()
-                        .anyRequest().permitAll())
-                .oauth2Login(okta -> okta
-                        .defaultSuccessUrl("/home")
-                        .redirectionEndpoint( redirect ->
-                                redirect.baseUri("/login/oauth2/code/okta")))
-                .logout(logout -> logout
-                        .addLogoutHandler(logoutHandler()));
+                        // .requestMatchers(AUTH_SECURED).fullyAuthenticated()
+                        .anyRequest().permitAll());
+                // .oauth2Login(okta -> okta
+                //         .defaultSuccessUrl("/home")
+                //         .redirectionEndpoint( redirect ->
+                //                 redirect.baseUri("/login/oauth2/code/okta")))
+                // .logout(logout -> logout
+                //         .addLogoutHandler(logoutHandler()));
         return http.build();
     }
 
